@@ -5,10 +5,6 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
-#include <queue>
-#include <unordered_set>
-#include <functional>
-#include <algorithm>
 
 using namespace std;
 
@@ -27,6 +23,7 @@ class KnowledgeGraph {
 private:
 
     unordered_map<string, Entity> entities;
+
     unordered_map<string, vector<Relationship>> graph;
 
 public:
@@ -38,21 +35,6 @@ public:
         string relation,
         string target
     );
-
-    void displayGraph();
-
-    void searchEntity(string name);
-
-    void BFS(string start);
-
-    void DFS(string start);
-
-    void findAttackPath(
-        string source,
-        string destination
-    );
-
-    void loadSampleData();
 };
 
 #endif

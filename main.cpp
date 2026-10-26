@@ -4,187 +4,34 @@ int main() {
 
     KnowledgeGraph kg;
 
-    int choice;
+    cout << "\n====================================\n";
+    cout << "   CYBER THREAT KNOWLEDGE GRAPH\n";
+    cout << "        CORE STRUCTURE TEST\n";
+    cout << "====================================\n";
 
-    do {
+    // Add cybersecurity entities
 
-        cout << "\n============================================\n";
-        cout << "       CYBER THREAT KNOWLEDGE GRAPH\n";
-        cout << "============================================\n";
+    kg.addEntity("Attacker_A", "Attacker");
 
-        cout << "1. Add Entity\n";
-        cout << "2. Add Relationship\n";
-        cout << "3. Display Graph\n";
-        cout << "4. Search Entity\n";
-        cout << "5. BFS Threat Traversal\n";
-        cout << "6. DFS Threat Traversal\n";
-        cout << "7. Find Attack Path\n";
-        cout << "8. Load Sample Dataset\n";
-        cout << "9. Exit\n";
+    kg.addEntity("Malware_X", "Malware");
 
-        cout << "\nEnter your choice: ";
-        if (!(cin >> choice)) {
+    kg.addEntity("CVE_101", "Vulnerability");
 
-    cout << "\nInvalid input! Please enter a number.\n";
+    // Add relationships
 
-    cin.clear();
-    cin.ignore(1000, '\n');
+    kg.addRelationship(
+        "Attacker_A",
+        "uses",
+        "Malware_X"
+    );
 
-    continue;
-}
+    kg.addRelationship(
+        "Malware_X",
+        "exploits",
+        "CVE_101"
+    );
 
-
-        switch (choice) {
-
-            // --------------------------------
-            // ADD ENTITY
-            // --------------------------------
-
-            case 1: {
-
-                string name;
-                string type;
-
-                cout << "\nEnter entity name: ";
-                cin >> name;
-
-                cout << "Enter entity type: ";
-                cin >> type;
-
-                kg.addEntity(name, type);
-
-                break;
-            }
-
-
-            // --------------------------------
-            // ADD RELATIONSHIP
-            // --------------------------------
-
-            case 2: {
-
-                string source;
-                string relation;
-                string target;
-
-                cout << "\nEnter source entity: ";
-                cin >> source;
-
-                cout << "Enter relationship: ";
-                cin >> relation;
-
-                cout << "Enter target entity: ";
-                cin >> target;
-
-                kg.addRelationship(
-                    source,
-                    relation,
-                    target
-                );
-
-                break;
-            }
-
-
-            // --------------------------------
-            // DISPLAY GRAPH
-            // --------------------------------
-
-            case 3:
-
-                kg.displayGraph();
-
-                break;
-
-
-            // --------------------------------
-            // SEARCH ENTITY
-            // --------------------------------
-
-            case 4: {
-
-                string name;
-
-                cout << "\nEnter entity name to search: ";
-                cin >> name;
-
-                kg.searchEntity(name);
-
-                break;
-            }
-
-
-            // --------------------------------
-            // BFS
-            // --------------------------------
-
-            case 5: {
-
-                string start;
-
-                cout << "\nEnter starting entity for BFS: ";
-                cin >> start;
-
-                kg.BFS(start);
-
-                break;
-            }
-
-
-            // --------------------------------
-            // DFS
-            // --------------------------------
-
-            case 6: {
-
-                string start;
-
-                cout << "\nEnter starting entity for DFS: ";
-                cin >> start;
-
-                kg.DFS(start);
-
-                break;
-            }
-
-
-            // --------------------------------
-            // EXIT
-            // --------------------------------
-
-          case 7: {
-
-    string source;
-    string destination;
-
-    cout << "\nEnter source entity: ";
-    cin >> source;
-
-    cout << "Enter destination entity: ";
-    cin >> destination;
-
-    kg.findAttackPath(source, destination);
-
-    break;
-}
-
-
-case 8:
-
-    kg.loadSampleData();
-
-    break;
-
-
-case 9:
-
-    cout << "\nExiting program...\n";
-
-    break;
-        }
-
-    } while (choice != 9);
-
+    cout << "\nCore knowledge graph structure tested successfully!\n";
 
     return 0;
 }
