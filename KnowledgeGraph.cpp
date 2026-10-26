@@ -62,3 +62,55 @@ void KnowledgeGraph::addRelationship(
 
     cout << "Relationship added successfully!\n";
 }
+void KnowledgeGraph::displayGraph() {
+
+    cout << "\n========== KNOWLEDGE GRAPH ==========\n";
+
+    if (entities.empty()) {
+        cout << "Graph is empty!\n";
+        return;
+    }
+
+    for (auto &entity : entities) {
+
+        cout << "\n"
+             << entity.second.name
+             << " ["
+             << entity.second.type
+             << "]\n";
+
+        for (auto &relationship : graph[entity.first]) {
+
+            cout << "   "
+                 << relationship.relation
+                 << " -> "
+                 << relationship.target
+                 << "\n";
+        }
+    }
+
+    cout << "\n=====================================\n";
+}
+
+
+void KnowledgeGraph::searchEntity(string name) {
+
+    auto it = entities.find(name);
+
+    if (it == entities.end()) {
+
+        cout << "Entity not found!\n";
+
+        return;
+    }
+
+    cout << "\nEntity Found!\n";
+
+    cout << "Name : "
+         << it->second.name
+         << "\n";
+
+    cout << "Type : "
+         << it->second.type
+         << "\n";
+}

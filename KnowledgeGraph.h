@@ -35,6 +35,10 @@ public:
         string relation,
         string target
     );
+
+    void displayGraph();
+
+    void searchEntity(string name);
 };
 
 #endif

@@ -9,15 +9,9 @@ int main() {
     cout << "        CORE STRUCTURE TEST\n";
     cout << "====================================\n";
 
-    // Add cybersecurity entities
-
     kg.addEntity("Attacker_A", "Attacker");
-
     kg.addEntity("Malware_X", "Malware");
-
     kg.addEntity("CVE_101", "Vulnerability");
-
-    // Add relationships
 
     kg.addRelationship(
         "Attacker_A",
@@ -31,7 +25,14 @@ int main() {
         "CVE_101"
     );
 
-    cout << "\nCore knowledge graph structure tested successfully!\n";
+    cout << "\n--- Display Graph ---\n";
+    kg.displayGraph();
+
+    cout << "\n--- Search Entity ---\n";
+    kg.searchEntity("Malware_X");
+
+    cout << "\n--- Search Missing Entity ---\n";
+    kg.searchEntity("Unknown");
 
     return 0;
 }
