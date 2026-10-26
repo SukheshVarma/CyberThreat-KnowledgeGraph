@@ -188,3 +188,153 @@ void KnowledgeGraph::DFS(string start) {
 
     cout << "\n";
 }
+void KnowledgeGraph::findAttackPath(
+    string source,
+    string destination
+) {
+
+    if (entities.find(source) == entities.end()) {
+
+        cout << "Source entity does not exist!\n";
+        return;
+    }
+
+    if (entities.find(destination) == entities.end()) {
+
+        cout << "Destination entity does not exist!\n";
+        return;
+    }
+
+    if (source == destination) {
+
+        cout << "\nSource and destination are the same.\n";
+        cout << "Attack Path: " << source << "\n";
+
+        return;
+    }
+
+    queue<string> q;
+
+    unordered_set<string> visited;
+
+    unordered_map<string, string> parent;
+
+    q.push(source);
+
+    visited.insert(source);
+
+    bool found = false;
+
+    while (!q.empty()) {
+
+        string current = q.front();
+
+        q.pop();
+
+        for (auto &relationship : graph[current]) {
+
+            string next = relationship.target;
+
+            if (visited.find(next) == visited.end()) {
+
+                visited.insert(next);
+
+                parent[next] = current;
+
+                q.push(next);
+
+                if (next == destination) {
+
+                    found = true;
+                    break;
+                }
+            }
+        }
+
+        if (found) {
+            break;
+        }
+    }
+
+    if (!found) {
+
+        cout << "\nNo attack path exists between "
+             << source
+             << " and "
+             << destination
+             << ".\n";
+
+        return;
+    }
+
+    vector<string> path;
+
+    string current = destination;
+
+    while (current != source) {
+
+        path.push_back(current);
+
+        current = parent[current];
+    }
+
+    path.push_back(source);
+
+    reverse(path.begin(), path.end());
+
+    cout << "\n========== ATTACK PATH ==========\n";
+
+    for (int i = 0; i < path.size(); i++) {
+
+        cout << path[i];
+
+        if (i < path.size() - 1) {
+            cout << " -> ";
+        }
+    }
+
+    cout << "\n=================================\n";
+}
+void KnowledgeGraph::loadSampleData() {
+
+    cout << "\nLoading sample cybersecurity dataset...\n";
+
+    addEntity("Attacker_A", "Attacker");
+    addEntity("Attacker_B", "Attacker");
+
+    addEntity("Malware_X", "Malware");
+    addEntity("Malware_Y", "Malware");
+
+    addEntity("CVE_101", "Vulnerability");
+    addEntity("CVE_202", "Vulnerability");
+
+    addEntity("Server_01", "Server");
+    addEntity("Server_02", "Server");
+
+    addEntity("Organization_A", "Organization");
+
+    addRelationship("Attacker_A", "uses", "Malware_X");
+    addRelationship("Attacker_B", "uses", "Malware_Y");
+
+    addRelationship("Malware_X", "exploits", "CVE_101");
+    addRelationship("Malware_Y", "exploits", "CVE_202");
+
+    addRelationship("CVE_101", "affects", "Server_01");
+    addRelationship("CVE_202", "affects", "Server_02");
+
+    addRelationship("Malware_X", "targets", "Server_02");
+
+    addRelationship(
+        "Server_01",
+        "belongs_to",
+        "Organization_A"
+    );
+
+    addRelationship(
+        "Server_02",
+        "belongs_to",
+        "Organization_A"
+    );
+
+    cout << "\nSample dataset loaded successfully!\n";
+}

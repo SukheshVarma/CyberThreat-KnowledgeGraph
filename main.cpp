@@ -6,50 +6,31 @@ int main() {
 
     cout << "\n====================================\n";
     cout << "   CYBER THREAT KNOWLEDGE GRAPH\n";
-    cout << "          BFS / DFS TEST\n";
+    cout << "      SAMPLE DATASET TEST\n";
     cout << "====================================\n";
 
-    kg.addEntity("Attacker_A", "Attacker");
-    kg.addEntity("Malware_X", "Malware");
-    kg.addEntity("CVE_101", "Vulnerability");
-    kg.addEntity("Server_01", "Server");
-    kg.addEntity("Organization_A", "Organization");
+    kg.loadSampleData();
 
-    kg.addRelationship(
+    cout << "\n--- Attack Path From Attacker_A ---\n";
+
+    kg.findAttackPath(
         "Attacker_A",
-        "uses",
-        "Malware_X"
-    );
-
-    kg.addRelationship(
-        "Malware_X",
-        "exploits",
-        "CVE_101"
-    );
-
-    kg.addRelationship(
-        "CVE_101",
-        "affects",
-        "Server_01"
-    );
-
-    kg.addRelationship(
-        "Server_01",
-        "belongs_to",
         "Organization_A"
     );
 
-    cout << "\n--- BFS Test ---\n";
-    kg.BFS("Attacker_A");
+    cout << "\n--- Attack Path From Attacker_B ---\n";
 
-    cout << "\n--- DFS Test ---\n";
-    kg.DFS("Attacker_A");
+    kg.findAttackPath(
+        "Attacker_B",
+        "Organization_A"
+    );
 
-    cout << "\n--- Invalid BFS Test ---\n";
-    kg.BFS("Unknown");
+    cout << "\n--- Invalid Entity Test ---\n";
 
-    cout << "\n--- Invalid DFS Test ---\n";
-    kg.DFS("Unknown");
+    kg.findAttackPath(
+        "Unknown",
+        "Organization_A"
+    );
 
     return 0;
 }

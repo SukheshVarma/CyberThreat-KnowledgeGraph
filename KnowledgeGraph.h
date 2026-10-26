@@ -8,6 +8,7 @@
 #include <queue>
 #include <unordered_set>
 #include <functional>
+#include <algorithm>
 
 using namespace std;
 
@@ -44,6 +45,12 @@ public:
     void searchEntity(string name);
     void BFS(string start);
     void DFS(string start);
+    void findAttackPath(
+    string source,
+    string destination
+);
+
+void loadSampleData();
 };
 
 #endif
