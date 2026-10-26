@@ -6,12 +6,14 @@ int main() {
 
     cout << "\n====================================\n";
     cout << "   CYBER THREAT KNOWLEDGE GRAPH\n";
-    cout << "        CORE STRUCTURE TEST\n";
+    cout << "          BFS / DFS TEST\n";
     cout << "====================================\n";
 
     kg.addEntity("Attacker_A", "Attacker");
     kg.addEntity("Malware_X", "Malware");
     kg.addEntity("CVE_101", "Vulnerability");
+    kg.addEntity("Server_01", "Server");
+    kg.addEntity("Organization_A", "Organization");
 
     kg.addRelationship(
         "Attacker_A",
@@ -25,14 +27,29 @@ int main() {
         "CVE_101"
     );
 
-    cout << "\n--- Display Graph ---\n";
-    kg.displayGraph();
+    kg.addRelationship(
+        "CVE_101",
+        "affects",
+        "Server_01"
+    );
 
-    cout << "\n--- Search Entity ---\n";
-    kg.searchEntity("Malware_X");
+    kg.addRelationship(
+        "Server_01",
+        "belongs_to",
+        "Organization_A"
+    );
 
-    cout << "\n--- Search Missing Entity ---\n";
-    kg.searchEntity("Unknown");
+    cout << "\n--- BFS Test ---\n";
+    kg.BFS("Attacker_A");
+
+    cout << "\n--- DFS Test ---\n";
+    kg.DFS("Attacker_A");
+
+    cout << "\n--- Invalid BFS Test ---\n";
+    kg.BFS("Unknown");
+
+    cout << "\n--- Invalid DFS Test ---\n";
+    kg.DFS("Unknown");
 
     return 0;
 }

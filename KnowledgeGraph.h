@@ -5,6 +5,9 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+#include <queue>
+#include <unordered_set>
+#include <functional>
 
 using namespace std;
 
@@ -39,6 +42,8 @@ public:
     void displayGraph();
 
     void searchEntity(string name);
+    void BFS(string start);
+    void DFS(string start);
 };
 
 #endif

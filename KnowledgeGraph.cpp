@@ -114,3 +114,77 @@ void KnowledgeGraph::searchEntity(string name) {
          << it->second.type
          << "\n";
 }
+void KnowledgeGraph::BFS(string start) {
+
+    if (entities.find(start) == entities.end()) {
+
+        cout << "Starting entity does not exist!\n";
+        return;
+    }
+
+    unordered_set<string> visited;
+
+    queue<string> q;
+
+    visited.insert(start);
+    q.push(start);
+
+    cout << "\nBFS Threat Traversal:\n";
+
+    while (!q.empty()) {
+
+        string current = q.front();
+        q.pop();
+
+        cout << current << " ";
+
+        for (auto &relationship : graph[current]) {
+
+            string next = relationship.target;
+
+            if (visited.find(next) == visited.end()) {
+
+                visited.insert(next);
+                q.push(next);
+            }
+        }
+    }
+
+    cout << "\n";
+}
+
+
+void KnowledgeGraph::DFS(string start) {
+
+    if (entities.find(start) == entities.end()) {
+
+        cout << "Starting entity does not exist!\n";
+        return;
+    }
+
+    unordered_set<string> visited;
+
+    cout << "\nDFS Threat Traversal:\n";
+
+    function<void(string)> dfs =
+        [&](string current) {
+
+            visited.insert(current);
+
+            cout << current << " ";
+
+            for (auto &relationship : graph[current]) {
+
+                string next = relationship.target;
+
+                if (visited.find(next) == visited.end()) {
+
+                    dfs(next);
+                }
+            }
+        };
+
+    dfs(start);
+
+    cout << "\n";
+}
